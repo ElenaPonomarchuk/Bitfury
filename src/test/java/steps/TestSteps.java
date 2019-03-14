@@ -10,6 +10,7 @@ public class TestSteps {
 
     @Step
     public void openPresidantialElectionList(){
+        page.openURL();
         page.voiteEllectionBtnClick();
     }
 
@@ -22,6 +23,7 @@ public class TestSteps {
     @Step
     public void selectCandidate(){
         page.selectCandidat();
+        page.getDescription();
     }
 
 }

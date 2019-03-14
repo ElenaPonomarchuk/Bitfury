@@ -22,6 +22,7 @@ public class RunTest {
     public void firstTest(){
         testSteps.openPresidantialElectionList();
         testSteps.selectEstonianElection();
+        testSteps.selectCandidate();
 
     }
 

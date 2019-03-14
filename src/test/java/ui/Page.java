@@ -4,6 +4,10 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
+
+import static net.sourceforge.htmlunit.cyberneko.HTMLEntities.get;
+
 public class Page extends PageObject {
     @FindBy(xpath = "//div[text()='VOTE IN ELECTION']")
     private WebElement voiteEllectionBtn;
@@ -15,26 +19,36 @@ public class Page extends PageObject {
     private WebElement shortDescription;
     @FindBy(xpath = "//a[text()='Official candidate page']")
     private WebElement officialCandidatePage;
+    @FindBy(xpath = "//p[1]")
+    private WebElement wikiDescription;
 
-
+    public void openURL(){
+        open();
+    }
 
     public void voiteEllectionBtnClick() {
-        open();
         voiteEllectionBtn.click();
     }
     public void selectEstonianPresidantial() {
         estonianPresidantial.click();
     }
+
     public void selectCandidat(){
         einkiNestor.click();
     }
+
 //    public void assertDescription(){
 //        shortDescription.getText(), equals();
 //    }
-    public void getDescription(){
-        officialCandidatePage.click();
 
-        String winHandleBefore = getDriver().getWindowHandle();
+    public void getDescription() {
+        officialCandidatePage.click();
+        ArrayList<String> tabs2 = new ArrayList<String> (getDriver().getWindowHandles());
+        getDriver().switchTo().window(tabs2.get(1));
+        String text = wikiDescription.getText();
+        System.out.println(text);
+
+//        String winHandleBefore = getDriver().getWindowHandle();
 
     }
 }

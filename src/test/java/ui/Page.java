@@ -1,5 +1,6 @@
 package ui;
 
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.WebElement;
@@ -7,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 
 import static net.sourceforge.htmlunit.cyberneko.HTMLEntities.get;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class Page extends PageObject {
     @FindBy(xpath = "//div[text()='VOTE IN ELECTION']")
@@ -21,6 +24,8 @@ public class Page extends PageObject {
     private WebElement officialCandidatePage;
     @FindBy(xpath = "//p[1]")
     private WebElement wikiDescription;
+
+    String twoSentences;
 
     public void openURL(){
         open();
@@ -37,18 +42,25 @@ public class Page extends PageObject {
         einkiNestor.click();
     }
 
-//    public void assertDescription(){
-//        shortDescription.getText(), equals();
-//    }
-
-    public void getDescription() {
+    public void openOfficialCandidatPage(){
         officialCandidatePage.click();
-        ArrayList<String> tabs2 = new ArrayList<String> (getDriver().getWindowHandles());
-        getDriver().switchTo().window(tabs2.get(1));
-        String text = wikiDescription.getText();
-        System.out.println(text);
+    }
 
-//        String winHandleBefore = getDriver().getWindowHandle();
+    public String getDescription() {
+        String[] parts = wikiDescription.getText().split("\\.");
+        twoSentences = parts[0] + "." + parts[1] + ".";
+        return  twoSentences;
 
     }
-}
+
+    public void changeBrowserTab(int tab){
+        ArrayList<String> tabs2 = new ArrayList<String>(getDriver().getWindowHandles());
+        getDriver().switchTo().window(tabs2.get(tab));
+    }
+
+    public void checkCandidateDescription(){
+        assertThat(shortDescription.getText(), equalTo(twoSentences));
+    }
+
+    }
+

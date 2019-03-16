@@ -23,7 +23,11 @@ public class TestSteps {
     @Step
     public void selectCandidate(){
         page.selectCandidat();
+        page.openOfficialCandidatPage();
+        page.changeBrowserTab(1);
         page.getDescription();
+        page.changeBrowserTab(0);
+        page.checkCandidateDescription();
     }
 
 }

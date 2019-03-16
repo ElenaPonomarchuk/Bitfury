@@ -46,8 +46,13 @@ public class TestSteps {
         page.changeBrowserTab(1);
         page.checkCandidateLink(candidateName);
 
+    }
 
-
+    @Step
+    public void confirmVoteElectionPopUp(String candidate){
+        page.selectCandidat(candidate);
+        page.voiteEllectionBtnClick();
+        page.checkVoteElectionPopUp(candidate);
     }
 
 }

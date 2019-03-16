@@ -26,7 +26,7 @@ public class RunTest {
 
     }
 
-    @Test
+//    @Test
     public void checkCanditateLink(){
         testSteps.openPresidantialElectionList();
         testSteps.selectEstonianElection();
@@ -36,11 +36,19 @@ public class RunTest {
     }
 
 //    @Test
-    public void e2eTest(){
+    public void checkCandidateDescription(){
         testSteps.openPresidantialElectionList();
         testSteps.selectEstonianElection();
         testSteps.selectCandidate("Eiki Nestor");
         testSteps.checkCandidateDescription();
+    }
+
+    @Test
+    public void confirmVoteElectionPopUp(){
+        testSteps.openPresidantialElectionList();
+        testSteps.selectEstonianElection();
+        testSteps.confirmVoteElectionPopUp("Eiki Nestor");
+
     }
 
 }

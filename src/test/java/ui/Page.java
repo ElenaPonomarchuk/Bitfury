@@ -27,6 +27,10 @@ public class Page extends PageObject {
     private WebElement wikiDescription;
     @FindBy(xpath ="//h1[@id='firstHeading']")
     private WebElement candidateHeader;
+    @FindBy (xpath = "//div[@class='confirm-choise-block-title']")
+    private WebElement confirmText;
+    @FindBy (xpath = "//div[@class='confirm-choise-block-name ng-binding']")
+    private WebElement candidateName;
 
 
     String twoSentences;
@@ -71,6 +75,17 @@ public class Page extends PageObject {
 
     public void checkCandidateLink(String candidateName){
         assertThat(candidateHeader.getText(), equalTo(candidateName));
+    }
+
+    public void checkVoteElectionPopUp(String candidate){
+      String confirmTextText = confirmText.getText();
+      System.out.println(confirmTextText);
+      assertThat(confirmTextText, equalTo("Are you sure you want to prepare\n" +
+              "an anonymous ballot with\n" +
+              "following candidate selected?"));
+      assertThat(candidateName.getText(), equalTo(candidate));
+      getDriver().findElement(By.xpath("//div[@class='button button-red' and text()='YES']")).isDisplayed();
+      getDriver().findElement(By.xpath("//div[@class='button' and text()='CANCEL']")).isDisplayed();
     }
 
 

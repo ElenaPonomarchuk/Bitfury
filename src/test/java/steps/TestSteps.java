@@ -2,6 +2,7 @@ package steps;
 
 import net.thucydides.core.annotations.Step;
 
+import org.junit.Test;
 import ui.Page;
 
 public class TestSteps {
@@ -49,10 +50,38 @@ public class TestSteps {
     }
 
     @Step
-    public void confirmVoteElectionPopUp(String candidate){
+    public void checkConfirmVoteElectionPopUp(String candidate){
         page.selectCandidat(candidate);
         page.voiteEllectionBtnClick();
         page.checkVoteElectionPopUp(candidate);
     }
 
+    @Step
+    public void confirmVoteElectionPopUp(String candidate){
+        page.selectCandidat(candidate);
+        page.voiteEllectionBtnClick();
+        page.confirmCandidateSelected();
+
+    }
+    @Step
+    public void checkBallotReceiptPage(){
+        page.checkBallotReceiptPage();
+    }
+
+    @Step
+    public void signBallotReceipt() {
+        page.signBallotReceipt();
+        page.setValidUniquePin();
+        page.checkBallotSignetPageAppears();
+    }
+
+    @Step
+    public void checkBallotSignedPage(){
+        page.checkBallotSignedPage();
+    }
+
+    @Step
+    public void enterEmail(String email){
+        page.setEmail(email);
+    }
 }

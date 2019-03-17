@@ -2,30 +2,30 @@ package steps;
 
 import net.thucydides.core.annotations.Step;
 
-import ui.Page;
+import ui.eVotingPage;
 
-public class TestSteps {
-    Page page;
+public class eVotingSteps {
+    eVotingPage page;
 
 
-    @Step
-    public void openPresidantialElectionList(){
+    @Step("Open main URL")
+    public void openPresidentialElectionList(){
         page.openURL();
-        page.voiteEllectionBtnClick();
+        page.voteElectionBtnClick();
     }
 
-    @Step
+    @Step("Open Candidates of Election Page")
     public void selectEstonianElection(){
-        page.selectEstonianPresidantial();
-        page.voiteEllectionBtnClick();
+        page.selectEstonianPresidential();
+        page.voteElectionBtnClick();
     }
 
-    @Step
+    @Step("Select a Candidate")
     public void selectCandidate(String candidate){
-        page.selectCandidat(candidate);
+        page.selectCandidate(candidate);
     }
 
-    @Step
+    @Step("Select a Candidate and check short Candidate Description")
     public void checkCandidateDescription(){
         page.openOfficialCandidatPage();
         page.changeBrowserTab(1);
@@ -34,13 +34,12 @@ public class TestSteps {
         page.checkCandidateDescription(wikiText);
     }
 
-    @Step
+    @Step("Verify that quantity of candidates = 4")
     public void checkCandidatesQuantity(){
         page.checkCandidatesQuantity();
-
     }
 
-    @Step
+    @Step("Verify that short description of candidate is correct")
     public void checkCandidateLink(String candidateName){
         page.openOfficialCandidatPage();
         page.changeBrowserTab(1);
@@ -48,38 +47,38 @@ public class TestSteps {
 
     }
 
-    @Step
+    @Step("Verify that all required elements are appear on the Confirm Vole Election Pop up")
     public void checkConfirmVoteElectionPopUp(String candidate){
-        page.selectCandidat(candidate);
-        page.voiteEllectionBtnClick();
+        page.selectCandidate(candidate);
+        page.voteElectionBtnClick();
         page.checkVoteElectionPopUp(candidate);
     }
 
-    @Step
+    @Step("Confirm Vote Election")
     public void confirmVoteElectionPopUp(String candidate){
-        page.selectCandidat(candidate);
-        page.voiteEllectionBtnClick();
+        page.selectCandidate(candidate);
+        page.voteElectionBtnClick();
         page.confirmCandidateSelected();
 
     }
-    @Step
+    @Step("Verify that all required elements are appear on the Ballot Receipt Page")
     public void checkBallotReceiptPage(){
         page.checkBallotReceiptPage();
     }
 
-    @Step
+    @Step("Generate and set a valid pin2")
     public void signBallotReceipt() {
         page.signBallotReceipt();
         page.setValidUniquePin();
         page.checkBallotSignetPageAppears();
     }
 
-    @Step
+    @Step("Verify that all required elements are appear on the Ballot Signed Page")
     public void checkBallotSignedPage(){
         page.checkBallotSignedPage();
     }
 
-    @Step
+    @Step("Get BALLOT RECEIPT 3-WORD MEMO AND HASH after entering email")
     public void enterEmail(String email){
         page.setEmail(email);
         page.getHashAndMemo();

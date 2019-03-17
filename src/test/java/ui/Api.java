@@ -22,15 +22,14 @@ public class Api extends PageObject {
         System.out.println(Serenity.sessionVariableCalled("email").toString());
         Serenity.setSessionVariable("token").to(jsonPathEvaluator.get("sid_token"));
         System.out.println(Serenity.sessionVariableCalled("token").toString());
-
     }
+
     public void deleteEmail(String emailId){
         Response response = SerenityRest.
                 when().
                 get("https://api.guerrillamail.com/ajax.php?f=del_email&email_ids[]="+emailId+"&sid_token="+Serenity.sessionVariableCalled("token").toString());
         response.then().statusCode(200).log().all();
     }
-
 
     public void checkNewEmail() {
         Response response = SerenityRest.when().
@@ -41,8 +40,8 @@ public class Api extends PageObject {
         System.out.println(id);
         Serenity.setSessionVariable("idMail").to(id);
         System.out.println("Mail ID is: " + Serenity.sessionVariableCalled("idMail").toString());
-
     }
+
     public void fetchMail() {
         Response response = SerenityRest.when().
                 get("https://api.guerrillamail.com/ajax.php?f=fetch_email&sid_token="+Serenity.sessionVariableCalled("token").toString()+ "&email_id="+Serenity.sessionVariableCalled("idMail").toString());
@@ -59,6 +58,4 @@ public class Api extends PageObject {
         assertThat(jsonPathEvaluator.get("mail_body").toString(), containsString(Serenity.sessionVariableCalled("hashText").toString()));
         assertThat(jsonPathEvaluator.get("mail_body").toString(), containsString(Serenity.sessionVariableCalled("memoText").toString()));
     }
-
-
 }

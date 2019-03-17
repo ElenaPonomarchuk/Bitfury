@@ -8,41 +8,39 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import steps.ApiSteps;
-import steps.TestSteps;
+import steps.eVotingSteps;
 
 
 @RunWith(SerenityRunner.class)
-public class RunTest {
+public class eVotingTest {
 
     @Managed
     WebDriver driver;
 
     @Steps
-    TestSteps testSteps;
+    eVotingSteps testSteps;
 
     @Steps
     ApiSteps apiSteps;
 
     @Test
     public void checkCandidatesQuantity(){
-        testSteps.openPresidantialElectionList();
+        testSteps.openPresidentialElectionList();
         testSteps.selectEstonianElection();
         testSteps.checkCandidatesQuantity();
-
     }
 
     @Test
     public void checkCanditateLink(){
-        testSteps.openPresidantialElectionList();
+        testSteps.openPresidentialElectionList();
         testSteps.selectEstonianElection();
         testSteps.selectCandidate("Eiki Nestor");
         testSteps.checkCandidateLink("Eiki Nestor");
-
     }
 
     @Test
     public void checkCandidateDescription(){
-        testSteps.openPresidantialElectionList();
+        testSteps.openPresidentialElectionList();
         testSteps.selectEstonianElection();
         testSteps.selectCandidate("Eiki Nestor");
         testSteps.checkCandidateDescription();
@@ -50,23 +48,22 @@ public class RunTest {
 
     @Test
     public void confirmVoteElectionPopUp(){
-        testSteps.openPresidantialElectionList();
+        testSteps.openPresidentialElectionList();
         testSteps.selectEstonianElection();
         testSteps.checkConfirmVoteElectionPopUp("Eiki Nestor");
     }
 
     @Test
     public void checkBallotReceiptPage(){
-        testSteps.openPresidantialElectionList();
+        testSteps.openPresidentialElectionList();
         testSteps.selectEstonianElection();
         testSteps.confirmVoteElectionPopUp("Eiki Nestor");
         testSteps.checkBallotReceiptPage();
-
     }
 
     @Test
     public void setValidPin2(){
-        testSteps.openPresidantialElectionList();
+        testSteps.openPresidentialElectionList();
         testSteps.selectEstonianElection();
         testSteps.confirmVoteElectionPopUp("Eiki Nestor");
         testSteps.signBallotReceipt();
@@ -74,7 +71,7 @@ public class RunTest {
 
     @Test
     public void checkBallotSignedPage(){
-        testSteps.openPresidantialElectionList();
+        testSteps.openPresidentialElectionList();
         testSteps.selectEstonianElection();
         testSteps.confirmVoteElectionPopUp("Eiki Nestor");
         testSteps.signBallotReceipt();
@@ -82,8 +79,8 @@ public class RunTest {
     }
 
     @Test
-    public void sentMail(){
-        testSteps.openPresidantialElectionList();
+    public void checkDeliveredEmail(){
+        testSteps.openPresidentialElectionList();
         testSteps.selectEstonianElection();
         testSteps.confirmVoteElectionPopUp("Eiki Nestor");
         testSteps.signBallotReceipt();
@@ -92,6 +89,4 @@ public class RunTest {
         testSteps.enterEmail(Serenity.sessionVariableCalled("email").toString());
         apiSteps.checkEmail();
     }
-
-
 }

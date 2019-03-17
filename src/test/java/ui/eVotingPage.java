@@ -15,7 +15,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class Page extends PageObject {
+public class eVotingPage extends PageObject {
     @FindBy(xpath = "//div[text()='VOTE IN ELECTION']")
     private WebElement voiteEllectionBtn;
     @FindBy(xpath = "//td[text()='Estonian Presidential Election']/ancestor::tr/descendant::div")
@@ -53,19 +53,18 @@ public class Page extends PageObject {
     @FindBy (xpath = "//div[@class='code-box ng-scope ng-binding']")
     private WebElement hash;
 
-
     public void openURL(){
         open();
     }
 
-    public void voiteEllectionBtnClick() {
+    public void voteElectionBtnClick() {
         voiteEllectionBtn.click();
     }
-    public void selectEstonianPresidantial() {
+    public void selectEstonianPresidential() {
         estonianPresidantial.click();
     }
 
-    public void selectCandidat(String candidate){
+    public void selectCandidate(String candidate){
         getDriver().findElement(By.xpath("//td[text()='"+ candidate +"']/ancestor::tr/descendant::div")).click();
     }
 
@@ -76,7 +75,6 @@ public class Page extends PageObject {
     public String getWikiText() {
         String[] parts = wikiDescription.getText().split("\\.");
         return  parts[0] + "." + parts[1] + ".";
-
     }
 
     public void changeBrowserTab(int tab){
@@ -118,7 +116,6 @@ public class Page extends PageObject {
         getDriver().findElement(By.xpath("//div[text()='DISCARD']")).isDisplayed();
         getDriver().findElement(By.xpath("//div[text()='DECRYPT']")).isDisplayed();
         getDriver().findElement(By.xpath("//div[text()='SIGN']")).isDisplayed();
-
     }
 
     public void signBallotReceipt(){
@@ -126,6 +123,7 @@ public class Page extends PageObject {
         waitABit(3000);
         signBtn.click();
     }
+
     public void setValidUniquePin(){
         String uniqueNumber = ""+((int)(Math.random()*9000)+1000);
         System.out.println(uniqueNumber);
@@ -159,7 +157,6 @@ public class Page extends PageObject {
         System.out.println("HASH IS HERE:" +Serenity.sessionVariableCalled("hashText").toString());
         Serenity.setSessionVariable("memoText").to(wordMemo.getText());
         System.out.println("MEMO IS HERE:"+ Serenity.sessionVariableCalled("memoText").toString());
-
     }
 }
 

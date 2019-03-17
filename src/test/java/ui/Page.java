@@ -121,7 +121,7 @@ public class Page extends PageObject {
     }
 
     public void signBallotReceipt(){
-        waitFor(ExpectedConditions.elementToBeClickable(signBtn));
+        waitABit(3000);
         signBtn.click();
     }
     public void setValidUniquePin(){

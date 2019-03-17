@@ -1,7 +1,6 @@
 package steps;
 
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.annotations.Steps;
 import ui.Api;
 
 public class ApiSteps {
@@ -17,5 +16,6 @@ public class ApiSteps {
     public void checkEmail(){
         api.deleteEmail("1");
         api.checkNewEmail();
+        api.fetchMail();
     }
 }

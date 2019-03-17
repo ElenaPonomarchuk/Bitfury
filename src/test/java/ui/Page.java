@@ -9,8 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -49,9 +47,11 @@ public class Page extends PageObject {
     private WebElement discartBallotBtn;
     @FindBy (xpath = "//input[@placeholder='Your mail']")
     private WebElement emailInputField;
+    @FindBy (xpath = "//div[@class='code-box code-box-bigger ng-scope ng-binding']")
+    private WebElement wordMemo;
+    @FindBy (xpath = "//div[@class='code-box ng-scope ng-binding']")
+    private WebElement hash;
 
-
-    String twoSentences;
 
     public void openURL(){
         open();
@@ -149,7 +149,15 @@ public class Page extends PageObject {
     public void setEmail(String email){
         emailInputField.sendKeys(email);
         ballotSubmitBtn.click();
-        waitABit(5000);
+        waitABit(60000); // Need to wait until the letter arrives at the mail we have entered
+    }
+
+    public void getHashAndMemo(){
+        Serenity.setSessionVariable("hashText").to(hash.getText());
+        System.out.println("HASH IS HERE:" +Serenity.sessionVariableCalled("hashText").toString());
+        Serenity.setSessionVariable("memoText").to(wordMemo.getText());
+        System.out.println("MEMO IS HERE:"+ Serenity.sessionVariableCalled("memoText").toString());
+
     }
 }
 

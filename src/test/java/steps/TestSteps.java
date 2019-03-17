@@ -2,7 +2,6 @@ package steps;
 
 import net.thucydides.core.annotations.Step;
 
-import org.junit.Test;
 import ui.Page;
 
 public class TestSteps {
@@ -83,5 +82,6 @@ public class TestSteps {
     @Step
     public void enterEmail(String email){
         page.setEmail(email);
+        page.getHashAndMemo();
     }
 }

@@ -5,10 +5,9 @@ import io.restassured.response.Response;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.rest.SerenityRest;
-import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
 
-import java.util.Map;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 
 public class Api extends PageObject {
 
@@ -34,18 +33,32 @@ public class Api extends PageObject {
 
 
     public void checkNewEmail() {
-//        SerenityRest.when().get("https://api.guerrillamail.com/ajax.php?f=get_email_address&ip=grr.la/mail/elgie");
-        waitABit(30000);
-        String apiUrl = "https://api.guerrillamail.com/ajax.php?f=get_email_list&offset=0&sid_token="+Serenity.sessionVariableCalled("token").toString();
-        System.out.println("Api url = "+apiUrl);
-        Response response = SerenityRest.when().get(apiUrl);
+        Response response = SerenityRest.when().
+                get("https://api.guerrillamail.com/ajax.php?f=get_email_list&offset=0&sid_token="+Serenity.sessionVariableCalled("token").toString());
         response.then().statusCode(200).log().all();
-        System.out.println(response);
         JsonPath jsonPathEvaluator = response.jsonPath();
-        String id = jsonPathEvaluator.get("list.mail_id").toString().replaceAll("\\[","").replaceAll("\\]","");
-        System.out.println("Mail: "+ id);
-
+        String id = jsonPathEvaluator.get("list.mail_id[0]");
+        System.out.println(id);
+        Serenity.setSessionVariable("idMail").to(id);
+        System.out.println("Mail ID is: " + Serenity.sessionVariableCalled("idMail").toString());
 
     }
+    public void fetchMail() {
+        Response response = SerenityRest.when().
+                get("https://api.guerrillamail.com/ajax.php?f=fetch_email&sid_token="+Serenity.sessionVariableCalled("token").toString()+ "&email_id="+Serenity.sessionVariableCalled("idMail").toString());
+        response.then().statusCode(200).log().all();
+        System.out.println(response);
+        // Get mail sender and assert with expected result
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        assertThat(jsonPathEvaluator.get("mail_from").toString(), containsString("voting2016app@gmail.com"));
+
+        // Get Letter subject and assert with expected result
+        assertThat(jsonPathEvaluator.get("mail_subject").toString(), containsString("Voter, your ballot has been successfully posted on public bulletin board"));
+
+        //Get Email Body and assert with expected result
+        assertThat(jsonPathEvaluator.get("mail_body").toString(), containsString(Serenity.sessionVariableCalled("hashText").toString()));
+        assertThat(jsonPathEvaluator.get("mail_body").toString(), containsString(Serenity.sessionVariableCalled("memoText").toString()));
+    }
+
 
 }

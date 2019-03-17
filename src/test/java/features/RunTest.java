@@ -13,8 +13,6 @@ import steps.TestSteps;
 
 @RunWith(SerenityRunner.class)
 public class RunTest {
-//    private static EnvironmentVariables variables = SystemEnvironmentVariables.createEnvironmentVariables();
-//    private static String email = variables.getProperty("nameEmail");
 
     @Managed
     WebDriver driver;
@@ -25,7 +23,7 @@ public class RunTest {
     @Steps
     ApiSteps apiSteps;
 
-//    @Test
+    @Test
     public void checkCandidatesQuantity(){
         testSteps.openPresidantialElectionList();
         testSteps.selectEstonianElection();
@@ -33,7 +31,7 @@ public class RunTest {
 
     }
 
-//    @Test
+    @Test
     public void checkCanditateLink(){
         testSteps.openPresidantialElectionList();
         testSteps.selectEstonianElection();
@@ -42,7 +40,7 @@ public class RunTest {
 
     }
 
-//    @Test
+    @Test
     public void checkCandidateDescription(){
         testSteps.openPresidantialElectionList();
         testSteps.selectEstonianElection();
@@ -50,14 +48,14 @@ public class RunTest {
         testSteps.checkCandidateDescription();
     }
 
-//    @Test
+    @Test
     public void confirmVoteElectionPopUp(){
         testSteps.openPresidantialElectionList();
         testSteps.selectEstonianElection();
         testSteps.checkConfirmVoteElectionPopUp("Eiki Nestor");
     }
 
-//    @Test
+    @Test
     public void checkBallotReceiptPage(){
         testSteps.openPresidantialElectionList();
         testSteps.selectEstonianElection();
@@ -66,7 +64,7 @@ public class RunTest {
 
     }
 
-//    @Test
+    @Test
     public void setValidPin2(){
         testSteps.openPresidantialElectionList();
         testSteps.selectEstonianElection();
@@ -74,7 +72,7 @@ public class RunTest {
         testSteps.signBallotReceipt();
     }
 
-//    @Test
+    @Test
     public void checkBallotSignedPage(){
         testSteps.openPresidantialElectionList();
         testSteps.selectEstonianElection();
@@ -93,11 +91,6 @@ public class RunTest {
         apiSteps.getEmail();
         testSteps.enterEmail(Serenity.sessionVariableCalled("email").toString());
         apiSteps.checkEmail();
-    }
-
-//    @Test
-    public void api(){
-        apiSteps.getEmail();
     }
 
 

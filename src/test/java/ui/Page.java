@@ -5,6 +5,7 @@ import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -121,7 +122,7 @@ public class Page extends PageObject {
     }
 
     public void signBallotReceipt(){
-        waitABit(3000);
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", signBtn);
         signBtn.click();
     }
     public void setValidUniquePin(){

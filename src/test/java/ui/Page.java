@@ -123,6 +123,7 @@ public class Page extends PageObject {
 
     public void signBallotReceipt(){
         ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", signBtn);
+        waitABit(3000);
         signBtn.click();
     }
     public void setValidUniquePin(){

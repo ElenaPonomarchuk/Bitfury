@@ -149,7 +149,7 @@ public class eVotingPage extends PageObject {
     public void setEmail(String email){
         emailInputField.sendKeys(email);
         ballotSubmitBtn.click();
-        waitABit(60000); // Need to wait until the letter arrives at the mail we have entered
+        waitABit(300000); // Need to wait until the letter arrives at the mail we have entered
     }
 
     public void getHashAndMemo(){

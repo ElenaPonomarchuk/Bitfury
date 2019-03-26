@@ -96,7 +96,6 @@ public class eVotingPage extends PageObject {
 
     public void checkVoteElectionPopUp(String candidate){
       String confirmTextText = confirmText.getText();
-      System.out.println(confirmTextText);
       assertThat(confirmTextText, equalTo("Are you sure you want to prepare\n" +
               "an anonymous ballot with\n" +
               "following candidate selected?"));
@@ -129,7 +128,6 @@ public class eVotingPage extends PageObject {
         System.out.println(uniqueNumber);
         for(int i = 0; i < uniqueNumber.length(); i++) {
             char charAtZero = uniqueNumber.charAt(i);
-            System.out.println(charAtZero);
             waitFor(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='keyboard-button-digit' and text()='" + charAtZero + "']/ancestor::div[contains(@class,'keyboard-button')])[2]")));
             getDriver().findElement(By.xpath("(//div[@class='keyboard-button-digit' and text()='" + charAtZero + "']/ancestor::div[contains(@class,'keyboard-button')])[2]")).click();
             }
@@ -154,9 +152,7 @@ public class eVotingPage extends PageObject {
 
     public void getHashAndMemo(){
         Serenity.setSessionVariable("hashText").to(hash.getText());
-        System.out.println("HASH IS HERE:" +Serenity.sessionVariableCalled("hashText").toString());
         Serenity.setSessionVariable("memoText").to(wordMemo.getText());
-        System.out.println("MEMO IS HERE:"+ Serenity.sessionVariableCalled("memoText").toString());
     }
 }
 

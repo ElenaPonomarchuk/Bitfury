@@ -16,12 +16,10 @@ public class Api extends PageObject {
         String apiUrl = "https://api.guerrillamail.com/ajax.php?f=get_email_address&ip=grr.la/mail/elgie";
         Response response = SerenityRest.when().get(apiUrl);
         response.then().statusCode(200).log().all();
-        System.out.println(response);
         JsonPath jsonPathEvaluator = response.jsonPath();
         Serenity.setSessionVariable("email").to(jsonPathEvaluator.get("email_addr"));
-        System.out.println(Serenity.sessionVariableCalled("email").toString());
         Serenity.setSessionVariable("token").to(jsonPathEvaluator.get("sid_token"));
-        System.out.println(Serenity.sessionVariableCalled("token").toString());
+
     }
 
     public void deleteEmail(String emailId){
@@ -37,9 +35,7 @@ public class Api extends PageObject {
         response.then().statusCode(200).log().all();
         JsonPath jsonPathEvaluator = response.jsonPath();
         String id = jsonPathEvaluator.get("list.mail_id[0]");
-        System.out.println(id);
         Serenity.setSessionVariable("idMail").to(id);
-        System.out.println("Mail ID is: " + Serenity.sessionVariableCalled("idMail").toString());
     }
 
     public void fetchMail() {
